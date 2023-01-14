@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/styles.css">
     <link rel="icon" href="../../img/sabia-icono.png">
     <script src="https://kit.fontawesome.com/3f2da06557.js" crossorigin="anonymous"></script>
+    <script src="/script/calculos.js"></script>
     <title>SABIA - Calculadora</title>
 </head>
 <body>
@@ -26,7 +27,7 @@
     <main class="contenedor">
         <section class="contenedor__titulos">
             <ul class="breadcrumb">
-                <li class="breadcrumb__element"><a href="inicio-calculadora.html">Calculadora</a></li>
+                <li class="breadcrumb__element"><a href="../index.html">Calculadora</a></li>
                 <i class="fa-solid fa-chevron-right"></i>
                 <li class="breadcrumb__element">Ajustable</li>
             </ul>
@@ -38,26 +39,18 @@
             </aside>
             <form>
                 <h1>Ajustable - Sencilla</h1>
-                <div class="contenedor__calculando__form form-group">
-                    <p class="contenedor__calculando__form__inline">Manijas:</p>
-                    <div class="contenedor__calculando__form__inline">
-                        <input type="radio" id="tela" name="manijas">
-                    <label for="tela">Tela</label>
-                    </div>
-                    <div class="contenedor__calculando__form__inline">
-                        <input type="radio" id="reata" name="manijas">
-                        <label for="reata">Reata</label>
-                    </div>
-                </div>
+                
                 <div class="contenedor__calculando__form">
                     <h3>Tela</h3>
                     <div>
+                        <select name="tipo-bolsa" id="tipo-bolsa" style="display: none;">
+                            <option>ajustableSencilla</option>
+                        </select>
                         <label for="tipo-tela">Tipo de tela:</label>
                         <select name="tipo-tela" id="tipo-tela">
-                            <option>Madreselva</option>
                             <option>Lienzo</option>
+                            <option>Madreselva</option>
                             <option>Drill</option>
-                            <option>Calima</option>
                             <option>Otra</option>
                         </select>
                     </div>
@@ -67,6 +60,7 @@
                         <span>cm</span>
                     </div>
                 </div>
+                <!--PENTIENTE FUNCION PARA AUTOCOMPLETAR CAMPOS DEPENDIENDO DE LA TALLA
                 <div class="contenedor__calculando__form">
                     <h3>Talla</h3>
                     <input type="radio" id="S" name="talla">
@@ -79,7 +73,7 @@
                     <label for="XL">XL</label>
                     <input type="radio" id="personalizada" name="talla">
                     <label for="personalizada">Personalizada</label>
-                </div>
+                </div>-->
                 <div class="contenedor__calculando__form">
                     <h3>Bolsas</h3>
                     <div>
@@ -94,19 +88,18 @@
                     </div>
                     <div>
                         <label for="alto">Alto:</label>
-                        <input type="number" id="alto" name="alto">
+                        <input type="number" id="alto-bolsa" name="alto">
                         <span>cm</span>
                     </div>
                     <div>
                         <label for="fuelle">Fuelle:</label>
-                        <input type="number" id="fuelle" name="fuelle">
+                        <input type="number" id="fuelle-bolsa" name="fuelle">
                         <span>cm</span>
                     </div>
                 </div>
                 <div >
-                    <input type="submit" value="CALCULAR" class="btn">
+                    <input type="submit" value="CALCULAR Y AGREGAR A COMPRAS" class="btn" onclick="captura()">
                     <input type="reset" value="LIMPIAR" class="btn">
-                    <button class="btn">AGREGAR A COMPRAS</button>
                     
                 </div>
             </form>
