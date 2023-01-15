@@ -54,10 +54,10 @@
                     <div>
                         <label for="tipo-tela">Tipo de tela:</label>
                         <select name="tipo-tela" id="tipo-tela">
+                            <option>Calima</option>
+                            <option>Drill</option>
                             <option>Madreselva</option>
                             <option>Lienzo</option>
-                            <option>Drill</option>
-                            <option>Calima</option>
                             <option>Otra</option>
                         </select>
                     </div>
@@ -68,21 +68,21 @@
                     </div>
                 </div>
 
-                <!--PENTIENTE FUNCION PARA AUTOCOMPLETAR CAMPOS DEPENDIENDO DE LA TALLA
+                <!--PENTIENTE FUNCION PARA AUTOCOMPLETAR CAMPOS DEPENDIENDO DE LA TALLA-->
 
                 <div class="contenedor__calculando__form">
                     <h3>Talla</h3>
-                    <input type="radio" id="S" name="talla">
+                    <input type="radio" id="S" name="talla" onclick="autocompletarTotes()">
                     <label for="S">S</label>
-                    <input type="radio" id="M" name="talla">
+                    <input type="radio" id="M" name="talla" onclick="autocompletarTotes()">
                     <label for="M">M</label>
-                    <input type="radio" id="L" name="talla">
+                    <input type="radio" id="L" name="talla" onclick="autocompletarTotes()">
                     <label for="L">L</label>
-                    <input type="radio" id="XL" name="talla">
+                    <input type="radio" id="XL" name="talla" onclick="autocompletarTotes()">
                     <label for="XL">XL</label>
-                    <input type="radio" id="personalizada" name="talla">
+                    <input type="radio" id="personalizada" name="talla" onclick="autocompletarTotes()">
                     <label for="personalizada">Personalizada</label>
-                </div>-->
+                </div>
 
                 <div class="contenedor__calculando__form">
                     <h3>Costura</h3>
@@ -114,7 +114,7 @@
                     </div>
                     <div>
                         <label for="fuelle-bolsa">Fuelle:</label>
-                        <input type="number" id="fuelle-bolsa" name="fuelle-bolsa">
+                        <input type="number" id="fuelle-bolsa" name="fuelle-bolsa" value="0">
                         <span>cm</span>
                     </div>
                 </div>

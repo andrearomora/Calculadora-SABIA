@@ -60,20 +60,20 @@
                         <span>cm</span>
                     </div>
                 </div>
-                <!--PENTIENTE FUNCION PARA AUTOCOMPLETAR CAMPOS DEPENDIENDO DE LA TALLA
+                <!--PENTIENTE FUNCION PARA AUTOCOMPLETAR CAMPOS DEPENDIENDO DE LA TALLA-->
                 <div class="contenedor__calculando__form">
                     <h3>Talla</h3>
-                    <input type="radio" id="S" name="talla">
+                    <input type="radio" id="XS" name="talla" onclick="autocompletarAjustable()">
+                    <label for="S">XS</label>
+                    <input type="radio" id="S" name="talla" onclick="autocompletarAjustable()">
                     <label for="S">S</label>
-                    <input type="radio" id="M" name="talla">
+                    <input type="radio" id="M" name="talla" onclick="autocompletarAjustable()">
                     <label for="M">M</label>
-                    <input type="radio" id="L" name="talla">
+                    <input type="radio" id="L" name="talla" onclick="autocompletarAjustable()">
                     <label for="L">L</label>
-                    <input type="radio" id="XL" name="talla">
-                    <label for="XL">XL</label>
-                    <input type="radio" id="personalizada" name="talla">
+                    <input type="radio" id="personalizada" name="talla" onclick="autocompletarAjustable()">
                     <label for="personalizada">Personalizada</label>
-                </div>-->
+                </div>
                 <div class="contenedor__calculando__form">
                     <h3>Bolsas</h3>
                     <div>
@@ -93,7 +93,7 @@
                     </div>
                     <div>
                         <label for="fuelle">Fuelle:</label>
-                        <input type="number" id="fuelle-bolsa" name="fuelle">
+                        <input type="number" id="fuelle-bolsa" name="fuelle" value="0">
                         <span>cm</span>
                     </div>
                 </div>

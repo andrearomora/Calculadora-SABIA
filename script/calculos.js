@@ -12,6 +12,8 @@ const extraDoblezA = 8;
 //Capturar datos del formulario
 function captura() {
     let tipoBolsa = document.getElementById("tipo-bolsa").value;
+    let tallaS = document.getElementById("S").value;
+    console.log(tallaS);
 
     let tipoManija;
     let tipoTela;
@@ -147,4 +149,86 @@ function calcularAjustableSencilla(tipoTela,anchoTela,cantidad,anchoBolsa,altoBo
     let cantTela = (tirasBolsas*altoPieza)/100;
 
     alert(`¡Necesitas ${cantTela} metros de ${tipoTela} y ${cantCordon} metros de cordón!`)
+}
+
+//FUNCION PARA AUTOCOMPLETAR POR TALLAS TOTEBAGS
+function autocompletarTotes(){
+
+    let anchoBolsa;
+    let altoBolsa;
+    let tallaBolsa = document.getElementsByName("talla");
+
+    anchoBolsa = document.getElementById("ancho-bolsa");
+    altoBolsa = document.getElementById("alto-bolsa");
+
+    for(let elemento of tallaBolsa){
+        let talla = elemento.id;
+        if (elemento.checked) {
+            switch (talla) {
+                case "S":
+                    anchoBolsa.value = 35;
+                    altoBolsa.value = 30;
+                    break;
+                case "M":
+                    anchoBolsa.value = 35;
+                    altoBolsa.value = 40;
+                    break;
+                case "L":
+                    anchoBolsa.value = 45;
+                    altoBolsa.value = 40;
+                    break;
+                case "XL":
+                    anchoBolsa.value = 45;
+                    altoBolsa.value = 50;
+                    break;
+                case "personalizada":
+                    anchoBolsa.value = "";
+                    altoBolsa.value = "";
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+
+//FUNCION PARA AUTOCOMPLETAR POR TALLAS AJUSTABLES
+function autocompletarAjustable(){
+    
+    let anchoBolsa;
+    let altoBolsa;
+    let tallaBolsa = document.getElementsByName("talla");
+
+    anchoBolsa = document.getElementById("ancho-bolsa");
+    altoBolsa = document.getElementById("alto-bolsa");
+
+    for(let elemento of tallaBolsa){
+        let talla = elemento.id;
+        if (elemento.checked) {
+            switch (talla) {
+                case "XS":
+                    anchoBolsa.value = 15;
+                    altoBolsa.value = 15;
+                    break;
+                case "S":
+                    anchoBolsa.value = 15;
+                    altoBolsa.value = 25;
+                    break;
+                case "M":
+                    anchoBolsa.value = 25;
+                    altoBolsa.value = 25;
+                    break;
+                case "L":
+                    anchoBolsa.value = 30;
+                    altoBolsa.value = 40;
+                    break;
+                case "personalizada":
+                    anchoBolsa.value = "";
+                    altoBolsa.value = "";
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
