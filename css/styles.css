@@ -96,6 +96,16 @@ p, label, option, input, select{
     border-color:var(--main-color);
     text-decoration: none;
 }
+.btnBuscar{
+    background-color: var(--main-color);
+    color: hsl(0, 0%, 96%);
+    padding: 4px 10px;
+    font-weight: 200;
+    font-size: 14px;
+    border-radius: 5px;
+    border-color:var(--main-color);
+    text-decoration: none;
+}
 .center{
     text-align: center;
     margin: 0 auto;
@@ -104,10 +114,8 @@ p, label, option, input, select{
 /*FIN BASICS*/
 
 /*BODY*/
-.contenedor{
+.container{
     margin-top: 150px;
-    margin-left: 20%;
-    margin-right: 20%;
     margin-bottom: 30px;
 }
 .contenedor__titulos{
@@ -218,19 +226,31 @@ p, label, option, input, select{
 .contenedor__calculando___img img{
     height: 230px;
     width: 230px;
-    padding-right: 20px;
 }
 .contenedor__calculando{
-    display: flex;
+    margin-top: 40px;
 }
 .contenedor__calculando__form{
     padding: 15px 0px;
 }
 .contenedor__calculando__form div{
+    display: flex;
+    
     margin: 15px 0px;
+}
+.contenedor__calculando__form div > input, select{
+    width: 100%;
+}
+.contenedor__calculando__form div > span{
+    width: 60px;
+    text-align: right;
+}
+.contenedor__calculando__form div > label{
+    padding-right: 20px;
 }
 .contenedor__calculando__form__inline{
     display: inline;
+    width: 100%;
 }
 /*FIN CALCULADORA POR CADA PRODUCTO*/
 
@@ -249,3 +269,8 @@ p, label, option, input, select{
     padding: 10px;
 }
 /*FIN TABLA COMPRAS*/
+
+/*DISPLAY*/
+.hide{
+    display: none;
+}
