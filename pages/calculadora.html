@@ -20,7 +20,7 @@
         </a>
         <div class="header__iconos">
             <a href="#"><i class="fa-sharp fa-solid fa-list"></i></a>
-            <a href="./calculadora-ajustable.html"><i class="fa-sharp fa-solid fa-calculator"></i></a>
+            <a href="./calculadora.html"><i class="fa-sharp fa-solid fa-calculator"></i></a>
         </div>
     </header>
     <!--FIN HEADER-->
@@ -50,10 +50,16 @@
                             <input type="text" placeholder="Buscar compras" id="buscarCompras">
                             <button id="btnBuscarCompras" type="button" class="btnBuscar btn-secondary">BUSCAR</button>
                             <br>
-                            <span>Ver consola (F12)</span>
+                            <table class="table">
+                                <thead>
+                                    <th scope="col">INSUMO</th>
+                                    <th scope="col">CANTIDAD</th>
+                                </thead>
+                                <tbody id="comprasTabla"></tbody>
+                            </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
                         </div>
                     </div>
                 </div>
@@ -71,7 +77,7 @@
                 <div class="col-md-8 col-sm-12">
                     <h1>Tote Bag - Sencilla</h1>
                     
-                    <div class="contenedor__calculando__form">
+                    <div>
 
                         <div>
                             <label for="tipo-manija">Tipo de manijas:  </label>
@@ -80,15 +86,18 @@
                                 <option>Reata</option>
                             </select>
                         </div>
-                        <div>
-                            <label for="tipo-tela-TBS">Tipo de tela:  </label>
-                                <select name="tipo-tela-TBS" id="tipo-tela-TBS">
-                                    <option>Calima</option>
-                                    <option>Drill</option>
-                                    <option>Madreselva</option>
-                                    <option>Lienzo</option>
-                                    <option>Otra</option>
-                                </select>
+                        <div class="contenedor__calculando__form">
+                            <h3>Tipo de tela:</h3>
+                            <input type="radio" id="calima" name="tipo-tela" onclick="autocompletarAnchoTela()">
+                            <label for="calima">Calima</label>
+                            <input type="radio" id="drill" name="tipo-tela" onclick="autocompletarAnchoTela()">
+                            <label for="drill">Drill</label>
+                            <input type="radio" id="madreselva" name="tipo-tela" onclick="autocompletarAnchoTela()">
+                            <label for="madreselva">Madreselva</label>
+                            <input type="radio" id="lienzo" name="tipo-tela" onclick="autocompletarAnchoTela()">
+                            <label for="lienzo">Lienzo</label>
+                            <input type="radio" id="otra" name="tipo-tela" onclick="autocompletarAnchoTela()">
+                            <label for="otra">Otra</label>
                         </div>
                         <div>
                             <label for="ancho">Ancho de la tela:  </label>
@@ -160,16 +169,17 @@
                 <div class="form col-md-8 col-sm-12">
                     <h1>Ajustable - Sencilla</h1>
                     
-                    <div class="contenedor__calculando__form">
-                        <div>
-
-                            <label for="tipo-tela">Tipo de tela:</label>
-                            <select name="tipo-tela" id="tipo-tela-AS">
-                                <option>Lienzo</option>
-                                <option>Madreselva</option>
-                                <option>Drill</option>
-                                <option>Otra</option>
-                            </select>
+                    <div>
+                        <div class="contenedor__calculando__form">
+                            <h3>Tipo de tela:</h3>
+                            <input type="radio" id="lienzo" name="tipo-tela" onclick="autocompletarAnchoTela()">
+                            <label for="lienzo">Lienzo</label>
+                            <input type="radio" id="drill" name="tipo-tela" onclick="autocompletarAnchoTela()">
+                            <label for="drill">Drill</label>
+                            <input type="radio" id="madreselva" name="tipo-tela" onclick="autocompletarAnchoTela()">
+                            <label for="madreselva">Madreselva</label>
+                            <input type="radio" id="otra" name="tipo-tela" onclick="autocompletarAnchoTela()">
+                            <label for="otra">Otra</label>
                         </div>
                         <div>
                             <label for="ancho">Ancho de tela:</label>

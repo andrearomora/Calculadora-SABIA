@@ -7,7 +7,7 @@ const extraFilete = 2;
 const extraDoblez = 10;
 //Para Ajustables
 const extraDoblezA = 8;
-const compras = [];
+let comprasTabla = document.getElementById("comprasTabla");
 
 //Función constructora de objetos para compras
 function Compra (producto,insumo,ancho,cantidad){
@@ -15,6 +15,15 @@ function Compra (producto,insumo,ancho,cantidad){
     this.insumo = insumo,
     this.ancho = ancho,
     this.cantidad = cantidad
+}
+
+//Revisión de local storage al primer ingreso
+let compras;
+if(localStorage.getItem("compras")){
+    compras = JSON.parse(localStorage.getItem("compras"))
+}else{
+    compras = []
+    localStorage.setItem("compras", compras)
 }
 
 //FUNCION PARA ELEGIR PRODUCTO
@@ -43,7 +52,7 @@ function elegirProducto(){
 
 //FUNCION PARA AUTOCOMPLETAR POR TALLAS TOTEBAGS
 function autocompletarTotes(){
-    console.log("totes")
+
     let anchoBolsa;
     let altoBolsa;
     let tallaBolsa = document.getElementsByName("talla-TBS");
@@ -122,6 +131,50 @@ function autocompletarAjustable(){
     }
 }
 
+//Funcion autocompletar ancho tela
+let tipoTelaGlobal;
+
+function autocompletarAnchoTela(){
+    let tipoTela = document.getElementsByName("tipo-tela");
+    let anchoTela = document.getElementById("ancho-tela-TBS");
+    let anchoTelaAS = document.getElementById("ancho-tela-AS");
+
+    for(let elemento of tipoTela){
+        let tipo = elemento.id;
+        if (elemento.checked) {
+            switch (tipo) {
+                case "calima":
+                    anchoTela.value = 177;
+                    anchoTelaAS.value = 177;
+                    tipoTelaGlobal = "Calima";
+                    break;
+                case "drill":
+                    anchoTela.value = 147;
+                    anchoTelaAS.value = 147;
+                    tipoTelaGlobal = "Drill";
+                    break;
+                case "madreselva":
+                    anchoTela.value = 147;
+                    anchoTelaAS.value = 147;
+                    tipoTelaGlobal = "Madreselva";
+                    break;
+                case "lienzo":
+                    anchoTela.value = 177;
+                    anchoTelaAS.value = 177;
+                    tipoTelaGlobal = "Lienzo";
+                    break;
+                case "otra":
+                    anchoTela.value = "";
+                    anchoTelaAS.value = "";
+                    tipoTelaGlobal = "Otra";
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+
 //Capturar datos del formulario
 function captura() {
 
@@ -144,7 +197,6 @@ function captura() {
                 case "TBS":
                     //Datos generales
                     tipoManija = document.getElementById("tipo-manija").value;
-                    tipoTela = document.getElementById("tipo-tela-TBS").value;
                     anchoTela = parseFloat(document.getElementById("ancho-tela-TBS").value);
                     tipoCostura = document.getElementById("tipo-costura").value;
 
@@ -155,11 +207,10 @@ function captura() {
                     fuelleBolsa = parseInt(document.getElementById("fuelle-bolsa-TBS").value);
 
                     //Envío data para obtener cálculo
-                    calcularToteSencilla(tipoManija,tipoTela,anchoTela,tipoCostura,cantidad,anchoBolsa,altoBolsa,fuelleBolsa);
+                    calcularToteSencilla(tipoManija,anchoTela,tipoCostura,cantidad,anchoBolsa,altoBolsa,fuelleBolsa);
                     break;
                 case "AS":
                     //Datos generales
-                    tipoTela = document.getElementById("tipo-tela-AS").value;
                     anchoTela = parseFloat(document.getElementById("ancho-tela-AS").value);
 
                     //Datos de la bolsa
@@ -169,7 +220,7 @@ function captura() {
                     fuelleBolsa = parseInt(document.getElementById("fuelle-bolsa-AS").value);
 
                     //Envío data para obtener cálculo
-                    calcularAjustableSencilla(tipoTela,anchoTela,cantidad,anchoBolsa,altoBolsa,fuelleBolsa);
+                    calcularAjustableSencilla(anchoTela,cantidad,anchoBolsa,altoBolsa,fuelleBolsa);
                     break;
                 default:
                     break;
@@ -180,7 +231,7 @@ function captura() {
 
 //FUNCIÓN PARA TOTE BAG SENCILLA
 
-function calcularToteSencilla(tipoManija,tipoTela,anchoTela,tipoCostura,cantidad,anchoBolsa,altoBolsa,fuelleBolsa) {
+function calcularToteSencilla(tipoManija,anchoTela,tipoCostura,cantidad,anchoBolsa,altoBolsa,fuelleBolsa) {
     //Definir talla del producto
     let tallaBolsa = document.getElementsByName("talla-TBS");
     for(let elemento of tallaBolsa){
@@ -218,7 +269,7 @@ function calcularToteSencilla(tipoManija,tipoTela,anchoTela,tipoCostura,cantidad
         anchoPieza = anchoBolsa + fuelleBolsa + extraFilete;
     }
     //Alto
-    if(tipoTela=="Drill" || tipoTela=="Lienzo"){
+    if(tipoTelaGlobal=="Drill" || tipoTelaGlobal=="Lienzo"){
         altoPieza = (altoBolsa*2) + fuelleBolsa + extraDoblez +1;
     }else{
         altoPieza = (altoBolsa*2) + fuelleBolsa + extraDoblez;
@@ -249,9 +300,9 @@ function calcularToteSencilla(tipoManija,tipoTela,anchoTela,tipoCostura,cantidad
         //Calculo total de metros de tela
         let cantTela = ((tirasBolsas*altoPieza)+(tirasManijas*altoManija))/100;
         cantTela = cantTela.toFixed(2);
-        compras.push(new Compra (`${cantidad} Tote Bag ${tallaBolsa}`,tipoTela,anchoTela,cantTela));
+        agregarACompras(new Compra (`${cantidad} Tote Bag ${tallaBolsa}`,tipoTelaGlobal,anchoTela,cantTela));
 
-        alert(`¡Necesitas ${cantTela} metros de ${tipoTela}!`)
+        alert(`¡Necesitas ${cantTela} metros de ${tipoTelaGlobal}!`)
     }else{
         //Calculo metros de reata
         let cantReata = ((cantidad*2)*altoManija)/100;
@@ -261,17 +312,17 @@ function calcularToteSencilla(tipoManija,tipoTela,anchoTela,tipoCostura,cantidad
         cantReata = cantReata.toFixed(2);
         cantTela = cantTela.toFixed(2);
 
-        compras.push(new Compra (`${cantidad} Tote Bag ${tallaBolsa}`,tipoTela,anchoTela,cantTela));
-        compras.push(new Compra (`Manijas para ${cantidad} Tote Bag`,"Reata","-",cantReata));
+        agregarACompras(new Compra (`${cantidad} Tote Bag ${tallaBolsa}`,tipoTelaGlobal,anchoTela,cantTela));
+        agregarACompras(new Compra (`Manijas para ${cantidad} Tote Bag`,"Reata","-",cantReata));
 
-        alert(`¡Necesitas ${cantTela} metros de ${tipoTela} y ${cantReata} metros de reata!`)
+        alert(`¡Necesitas ${cantTela} metros de ${tipoTelaGlobal} y ${cantReata} metros de reata!`)
     }
 
 }
 
 //FUNCIÓN PARA AJUSTABLE SENCILLA
 
-function calcularAjustableSencilla(tipoTela,anchoTela,cantidad,anchoBolsa,altoBolsa,fuelleBolsa){
+function calcularAjustableSencilla(anchoTela,cantidad,anchoBolsa,altoBolsa,fuelleBolsa){
     //Definir talla
     console.log("CALCULAR AJUSTABLES")
     let tallaBolsa = document.getElementsByName("talla-AS");
@@ -298,6 +349,7 @@ function calcularAjustableSencilla(tipoTela,anchoTela,cantidad,anchoBolsa,altoBo
                     break;
             }
         }
+
     }
 
     //Calculo del tamaño de la pieza a cortar
@@ -305,7 +357,7 @@ function calcularAjustableSencilla(tipoTela,anchoTela,cantidad,anchoBolsa,altoBo
     //Ancho
     let anchoPieza = anchoBolsa + fuelleBolsa + extraFilete;
     //Alto
-    if(tipoTela=="Drill" || tipoTela=="Lienzo"){
+    if(tipoTelaGlobal=="Drill" || tipoTelaGlobal=="Lienzo"){
         altoPieza = (altoBolsa*2) + fuelleBolsa + extraDoblezA + 1;
     }else{
         altoPieza = (altoBolsa*2) + fuelleBolsa + extraDoblezA;
@@ -322,10 +374,9 @@ function calcularAjustableSencilla(tipoTela,anchoTela,cantidad,anchoBolsa,altoBo
     let cantCordon = (cordonPorBolsa*cantidad)/100;
     //Calculo total de metros de tela
     let cantTela = (tirasBolsas*altoPieza)/100;
-    compras.push(new Compra (`${cantidad} Ajustable ${tallaBolsa}`,tipoTela,anchoTela,cantTela));
-    compras.push(new Compra (`Cordón o hiladillo para ${cantidad} Ajustable ${tallaBolsa}`,"Cordón o hiladillo","-",cantCordon));
-    console.log(compras);
-    alert(`¡Necesitas ${cantTela} metros de ${tipoTela} y ${cantCordon} metros de cordón!`)
+    agregarACompras(new Compra (`${cantidad} Ajustable ${tallaBolsa}`,tipoTelaGlobal,anchoTela,cantTela));
+    agregarACompras(new Compra (`Cordón o hiladillo para ${cantidad} Ajustable ${tallaBolsa}`,"Cordón o hiladillo","-",cantCordon));
+    alert(`¡Necesitas ${cantTela} metros de ${tipoTelaGlobal} y ${cantCordon} metros de cordón!`)
 }
 
 
@@ -333,28 +384,42 @@ function calcularAjustableSencilla(tipoTela,anchoTela,cantidad,anchoBolsa,altoBo
 
 let mostrarComprasBTN = document.getElementById("mostrarCompras");
 
+function agregarACompras(compra){
+    compras.push(compra)
+    localStorage.setItem("compras", JSON.stringify(compras))
+    console.log(compra)
+}
+
 mostrarComprasBTN.onclick = ()=>{
-    if(compras.length >= 1){
-        compras.forEach(element => {
-            console.log(element)
-        });
-    }else{
-        console.log("Aún no tiene compras")
-    }
-    
+    mostrarCompras(compras);
+}
+
+function mostrarCompras (array){
+    comprasTabla.innerHTML = ""
+
+    array.forEach((compra)=>{
+        comprasTabla.innerHTML += `
+        <tr>
+            <th scope="col">${compra.insumo}</th>
+            <th scope="col">${compra.cantidad} m</th>
+        </tr>                                                                                                                                                                                                                                                                                                                                                                  
+        `
+    })
 }
 
 let buscarComprasValor = document.getElementById("buscarCompras");
 let buscarComprasBTN = document.getElementById("btnBuscarCompras");
 
 buscarComprasBTN.onclick =  ()=>{
+    
     buscarCompras(buscarComprasValor.value, compras)
+    
 }
 
 function buscarCompras (input, array){
     let resultadoBusqueda = array.filter(
-        (compra) => compra.insumo.toLowerCase().includes(input.toLowerCase()) || compra.producto.toLowerCase().includes(input.toLowerCase())
-    )
-    console.log(input)
+        (comp) => comp.insumo.toLowerCase().includes(input.toLowerCase()) )
     console.log(resultadoBusqueda)
+    mostrarCompras(resultadoBusqueda)
+
 }
