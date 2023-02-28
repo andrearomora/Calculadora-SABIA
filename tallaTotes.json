@@ -1,0 +1,22 @@
+[
+    {
+        "talla":"S",
+        "ancho":"35",
+        "alto":"30"
+    },
+    {
+        "talla":"M",
+        "ancho":"35",
+        "alto":"40"
+    },
+    {
+        "talla":"L",
+        "ancho":"45",
+        "alto":"40"
+    },
+    {
+        "talla":"XL",
+        "ancho":"45",
+        "alto":"50"
+    }
+]
