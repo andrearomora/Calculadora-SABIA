@@ -18,7 +18,9 @@ HERRAMIENTAS UTILIZADAS:
 - HTML
 - CSS
 - JS
+
 Librerias:
+
 - Bootstrap
 - Toastiy
 - Sweat alert
