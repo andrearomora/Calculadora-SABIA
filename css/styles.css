@@ -19,7 +19,7 @@
 .header{
     background-color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 30px 10%;
     position: fixed;
@@ -29,43 +29,6 @@
 }
 .header__logo{
     height: 50px;
-}
-.header__nav{
-    display: flex;
-    list-style: none;
-}
-.header__nav__element{
-    list-style: none;
-    padding: 10px 20px;
-}
-.header__nav__element a{
-    text-decoration: none;
-    color: var(--black);
-    font-weight: 800;
-}
-.header__iconos a{
-    padding: 10px;
-    color: var(--black);
-    font-size: 24px;
-}
-.breadcrumb{
-    text-decoration: none;
-    margin-bottom: 30px;
-}
-.breadcrumb i{
-    color: var(--black);
-}
-.breadcrumb__element{
-    display: inline;
-    padding: 0px 20px 0px 0px;
-}
-.breadcrumb__element a{
-    color: var(--black);
-    text-decoration: none;
-}
-.breadcrumb__element a:visited{
-    color: var(--black);
-    text-decoration: none;
 }
 /* FIN HEADER*/
 
@@ -96,6 +59,20 @@ p, label, option, input, select{
     border-color:var(--main-color);
     text-decoration: none;
 }
+.btnEliminar{
+    height: 23px;
+    color: rgb(210, 14, 14);
+    background-color: white;
+    border-color: white;
+    text-decoration: none;
+}
+.btnEliminar:hover{
+    height: 23px;
+    color: rgb(177, 9, 9);
+    background-color: white;
+    border-color: white;
+    text-decoration: none;
+}
 .btnBuscar{
     background-color: var(--main-color);
     color: hsl(0, 0%, 96%);
@@ -119,110 +96,17 @@ p, label, option, input, select{
     margin-bottom: 30px;
 }
 .contenedor__titulos{
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 20px;
+    justify-content: center;
+    text-align: center;
+    padding: 20px 150px;
+    background-color: whitesmoke;
 }
 /*FIN BODY*/
 
-/*CALCULADORA - INICIO - PRODUCTOS*/
-.inicioCalculadora{
-    padding-top: 50px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    flex-wrap: wrap;
-    
-}
-.inicioCalculadora a{
-    text-decoration: none;
-}
-.inicioCalculadora a:visited{
-    text-decoration: none;
-    color: var(--black);
-}
-.inicioCalculadora__producto{
-    padding: 5px;
-    margin: 30px 10px;
-}
-.inicioCalculadora__producto__pie{
-    padding: 5px;
-    width: 240px;
-    text-align: left;
-}
-.inicioCalculadora__producto_pie p{
-    color: var(--black);
-    text-align: left;
-    width: 230px;
-}
-#tote-bag-sencilla{ 
-    height: 230px;
-    width: 230px;
-    background-image: url(../img/tote-bag-sencilla.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-#tote-bag-bolsillo{ 
-    height: 230px;
-    width: 230px;
-    background-image: url(../img/tote-bag-bolsillo.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-#tote-bag-bolsillo-cremallera{ 
-    height: 230px;
-    width: 230px;
-    background-image: url(../img/tote-bag-cremallera.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-#ajustable-clasica{ 
-    height: 230px;
-    width: 230px;
-    background-image: url(../img/Ajustable.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-#tula{ 
-    height: 230px;
-    width: 230px;
-    background-image: url(../img/tula.jpeg);
-    background-repeat: no-repeat;
-    background-size:contain;
-    background-position: center;
-}
-#tote-bag-cierre-completo{ 
-    height: 230px;
-    width: 230px;
-    background-image: url(../img/bolsa-cierre-completo.jpeg);
-    background-repeat: no-repeat;
-    background-size:contain;
-    background-position: center;
-}
-#ajustable-bolero{ 
-    height: 230px;
-    width: 230px;
-    background-image: url(../img/bolsa-ajustable-bolero.jpeg);
-    background-repeat: no-repeat;
-    background-size:contain;
-    background-position: center;
-}
-#video-container{
-    height: 230px;
-    width: 100%;
-    overflow: hidden;
-}
-#video-container video{
-    width: 240px;
-}
-
-/*FIN CALCULADORA - INICIO - PRODUCTOS*/
-
 /*CALCULADORA POR CADA PRODUCTO*/
+.contenedor__cal{
+    margin-top: 40px;
+}
 .contenedor__calculando___img img{
     height: 230px;
     width: 230px;

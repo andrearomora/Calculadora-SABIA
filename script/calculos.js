@@ -7,7 +7,10 @@ const extraFilete = 2;
 const extraDoblez = 10;
 //Para Ajustables
 const extraDoblezA = 8;
+
 let comprasTabla = document.getElementById("comprasTabla");
+let modalCompras = document.getElementById("staticBackdrop");
+
 
 //Función constructora de objetos para compras
 function Compra (insumo,cantidad){
@@ -22,13 +25,6 @@ if(localStorage.getItem("compras")){
 }else{
     compras = []
     localStorage.setItem("compras", compras)
-}
-
-//Cargue de tallas de forma asíncrona desde JSON
-
-const cargarTallasA = async () => {
-    const response = await fetch("../tallaAjustables.json")
-    const tallasAjustables = await response.json()
 }
 
 //FUNCION PARA ELEGIR PRODUCTO
@@ -67,7 +63,7 @@ function autocompletarTotes(){
     altoBolsa = document.getElementById("alto-bolsa-TBS");
 
     const cargarTallasT = async () => {
-        const response = await fetch("../tallaTotes.json")
+        const response = await fetch("tallaTotes.json")
         const tallasTotes = await response.json()
         for (let talla of tallasTotes){
             tallas.push(talla)
@@ -86,8 +82,6 @@ function autocompletarTotes(){
                         }
                     }
                 }
-                
-                    
             }
         }
     }
@@ -106,7 +100,7 @@ function autocompletarAjustable(){
     altoBolsa = document.getElementById("alto-bolsa-AS");
 
     const cargarTallasA = async () => {
-        const response = await fetch("../tallaAjustables.json")
+        const response = await fetch("tallaAjustables.json")
         const tallasAjustables = await response.json()
         for (let talla of tallasAjustables){
             tallas.push(talla)
@@ -192,7 +186,6 @@ function captura() {
     let tipoBolsa = document.getElementsByName("producto");
     
     for(let elemento of tipoBolsa){
-        console.log("entre a for")
         let tipo = elemento.id;
         if (elemento.checked) {
             switch (tipo) {
@@ -350,7 +343,6 @@ function calcularToteSencilla(tipoManija,anchoTela,tipoCostura,cantidad,anchoBol
 
 function calcularAjustableSencilla(anchoTela,cantidad,anchoBolsa,altoBolsa,fuelleBolsa){
     //Definir talla
-    console.log("CALCULAR AJUSTABLES")
     let tallaBolsa = document.getElementsByName("talla-AS");
     for(let elemento of tallaBolsa){
         let talla = elemento.id;
@@ -420,23 +412,17 @@ function calcularAjustableSencilla(anchoTela,cantidad,anchoBolsa,altoBolsa,fuell
 let mostrarComprasBTN = document.getElementById("mostrarCompras");
 
 function agregarACompras(nuevaCompra){
-
     let existe = false
-
     for (let compra of compras){
         if(nuevaCompra.insumo == compra.insumo){
             compra.cantidad = compra.cantidad + nuevaCompra.cantidad;
             existe = true
         }
     }
-
     if(existe == false){
         compras.push(nuevaCompra)
     }
-
     localStorage.setItem("compras", JSON.stringify(compras))
-    console.log(compras)
-
     Toastify({
         text: `La compra de ${nuevaCompra.cantidad} metros de ${nuevaCompra.insumo} ha sido agregada a la lista`,
         duration: 5000,
@@ -445,8 +431,8 @@ function agregarACompras(nuevaCompra){
         style: {
             background: "linear-gradient(to right, #00b09b, #96c93d)",
             color: "black"
-          }
-  }).showToast()
+        }
+    }).showToast()
 }
 
 mostrarComprasBTN.onclick = ()=>{
@@ -454,16 +440,42 @@ mostrarComprasBTN.onclick = ()=>{
 }
 
 function mostrarCompras (array){
-    comprasTabla.innerHTML = ""
-    array.forEach((compra)=>{
-        comprasTabla.innerHTML += `
-        <tr>
-            <th scope="col">${compra.insumo}</th>
-            <th scope="col">${compra.cantidad} m</th>
-        </tr>                                                                                                                                                                                                                                                                                                                                                                  
-        `
-    })
+    if(array.length>0){
+        comprasTabla.innerHTML = ""
+        array.forEach((compra)=>{
+            comprasTabla.innerHTML += `
+            <tr>
+                <th scope="col">${compra.insumo}</th>
+                <th scope="col">${compra.cantidad} m</th>
+                <th scope="col">
+                    <a class= "btnEliminar" id="botonEliminar${compra.insumo}"><i class="fas fa-trash-alt"></i></a>
+                </th>
+            </tr>                                                                                                                                                                                                                                                                                                                                                                  
+            `
+        })
+        array.forEach((compraLista)=>{
+            document.getElementById(`botonEliminar${compraLista.insumo}`).addEventListener("click", ()=>{
+
+                let compraEliminar = array.find(compra => compra.insumo == compraLista.insumo)
+                let posicion = array.indexOf(compraEliminar)
+
+                array.splice(posicion, 1)
+
+                localStorage.setItem("compras", JSON.stringify(array))
+                mostrarCompras(array)
+            })
+        })
+    }else{
+        comprasTabla.innerHTML = "No hay compras agregadas"
+    }
 }
+
+document.getElementById("TBS").addEventListener("click", ()=>{
+    elegirProducto()
+});
+document.getElementById("AS").addEventListener("click", ()=>{
+    elegirProducto()
+});
 
 let buscarComprasValor = document.getElementById("buscarCompras");
 let buscarComprasBTN = document.getElementById("btnBuscarCompras");
@@ -475,6 +487,33 @@ buscarComprasBTN.onclick =  ()=>{
 function buscarCompras (input, array){
     let resultadoBusqueda = array.filter(
         (comp) => comp.insumo.toLowerCase().includes(input.toLowerCase()) )
-    console.log(resultadoBusqueda)
     mostrarCompras(resultadoBusqueda)
 }
+
+document.getElementById(`finCompras`).addEventListener("click", ()=>{
+    if(compras.length>0){
+        swal({
+            title: "¿Seguro desea finalizar las compras?",
+            text: "Una vez finalizadas, su lista de compras será eliminada",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                compras = []
+                localStorage.setItem("compras", JSON.stringify(compras))
+                swal("¡Compras finalizadas!", {
+                icon: "success",
+                });
+            } else {
+                swal("¡Sigue comprando!");
+            }
+        });
+    }else{
+        swal("No hay compras agregadas", {
+            icon: "warning",
+        });
+    }
+    
+})
